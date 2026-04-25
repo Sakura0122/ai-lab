@@ -1,13 +1,13 @@
-package com.sakura.ai.lab;
+package com.sakura;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AiLabApplication {
+public class SpringAiApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AiLabApplication.class, args);
+        SpringApplication.run(SpringAiApplication.class, args);
     }
 
 }

@@ -1,6 +1,6 @@
-package com.sakura.ai.lab.comtroller;
+package com.sakura.comtroller;
 
-import com.sakura.ai.lab.service.PromptDemoService;
+import com.sakura.service.PromptDemoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,4 +1,4 @@
-package com.sakura.ai.lab.comtroller;
+package com.sakura.comtroller;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.web.bind.annotation.GetMapping;

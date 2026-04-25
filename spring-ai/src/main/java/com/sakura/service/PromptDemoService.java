@@ -1,4 +1,4 @@
-package com.sakura.ai.lab.service;
+package com.sakura.service;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.prompt.Prompt;
