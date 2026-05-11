@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI 对话</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        #output { white-space: pre-wrap; border: 1px solid #ddd; padding: 15px;
+            min-height: 200px; border-radius: 8px; background: #f9f9f9; margin-top: 10px; }
+        .controls { display: flex; gap: 10px; margin-top: 10px; }
+        input { flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+        button { padding: 8px 16px; border-radius: 4px; cursor: pointer; border: none; }
+        #sendBtn { background: #4CAF50; color: white; }
+        #stopBtn { background: #f44336; color: white; display: none; }
+    </style>
+</head>
+<body>
+<h2>Spring AI 流式对话</h2>
+<div id="output">等待输入...</div>
+<div class="controls">
+    <input id="input" type="text" placeholder="输入你的问题"
+           onkeydown="if(event.key==='Enter') sendMessage()">
+    <button id="sendBtn" onclick="sendMessage()">发送</button>
+    <button id="stopBtn" onclick="stopStream()">停止</button>
+</div>
+<script>
+    let eventSource = null;
+    const conversationId = 'user_' + Date.now(); // 简单生成会话 ID
+
+    function sendMessage() {
+        const input = document.getElementById('input');
+        const output = document.getElementById('output');
+        const message = input.value.trim();
+        if (!message) return;
+
+        if (eventSource) eventSource.close();
+
+        output.textContent = '';
+        document.getElementById('sendBtn').disabled = true;
+        document.getElementById('stopBtn').style.display = 'inline-block';
+
+        const url = `http://127.0.0.1:8080/stream/conversation?message=${encodeURIComponent(message)}&conversationId=${conversationId}`;
+        eventSource = new EventSource(url);
+
+        eventSource.onmessage = (event) => {
+            output.textContent += event.data;
+            // 自动滚动到底部
+            output.scrollTop = output.scrollHeight;
+        };
+
+        eventSource.onerror = () => {
+            onStreamEnd();
+        };
+
+        input.value = '';
+    }
+
+    function stopStream() {
+        if (eventSource) {
+            eventSource.close();
+            eventSource = null;
+        }
+        onStreamEnd();
+    }
+
+    function onStreamEnd() {
+        document.getElementById('sendBtn').disabled = false;
+        document.getElementById('stopBtn').style.display = 'none';
+        eventSource = null;
+    }
+</script>
+</body>
+</html>
