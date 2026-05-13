@@ -1,4 +1,4 @@
-package com.sakura.toot;
+package com.sakura.tools;
 
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.annotation.ToolParam;

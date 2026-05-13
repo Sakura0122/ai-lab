@@ -1,6 +1,6 @@
 package com.sakura.comtroller;
 
-import com.sakura.toot.WeatherTools;
+import com.sakura.tools.WeatherTools;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.web.bind.annotation.*;
 
